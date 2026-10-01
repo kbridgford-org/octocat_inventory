@@ -35,6 +35,13 @@ jobs:
           npm --version
           npx --version
 
+      # The published 2.10.0 package lacks the tool annotations required by
+      # Copilot's MCP proxy. Pin the upstream revision that includes them.
+      - name: Install Azure DevOps MCP server
+        run: |
+          npm install --global "github:microsoft/azure-devops-mcp#52072ff41bb8849af9f19a85a260aa1b52824158"
+          command -v mcp-server-azuredevops
+
       - name: Install API dependencies
         working-directory: api
         run: npm ci
