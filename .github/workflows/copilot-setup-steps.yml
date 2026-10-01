@@ -35,12 +35,13 @@ jobs:
           npm --version
           npx --version
 
-      - name: Install all dependencies
-        run: make install
+      - name: Install API dependencies
+        working-directory: api
+        run: npm ci
 
-      - name: Install Playwright
+      - name: Install frontend dependencies
         working-directory: frontend
-        run: npm install -D @playwright/test
+        run: npm ci
 
       - name: Install Playwright browsers (Chromium and Edge)
         working-directory: frontend
