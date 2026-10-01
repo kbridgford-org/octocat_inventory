@@ -39,7 +39,16 @@ jobs:
       # Copilot's MCP proxy. Pin the upstream revision that includes them.
       - name: Install Azure DevOps MCP server
         run: |
-          npm install --global "github:microsoft/azure-devops-mcp#52072ff41bb8849af9f19a85a260aa1b52824158"
+          archive="$RUNNER_TEMP/azure-devops-mcp.tar.gz"
+          source_dir="$RUNNER_TEMP/azure-devops-mcp"
+          curl --fail --silent --show-error --location \
+            "https://github.com/microsoft/azure-devops-mcp/archive/52072ff41bb8849af9f19a85a260aa1b52824158.tar.gz" \
+            --output "$archive"
+          mkdir "$source_dir"
+          tar --extract --gzip --file "$archive" --directory "$source_dir" --strip-components=1
+          npm ci --prefix "$source_dir"
+          npm run build --prefix "$source_dir"
+          npm install --global --ignore-scripts "$source_dir"
           command -v mcp-server-azuredevops
 
       - name: Install API dependencies
