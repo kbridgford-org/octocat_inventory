@@ -1,0 +1,22 @@
+{
+  "mcpServers": {
+    "ado-remote-mcp": {
+      "type": "local",
+      "command": "node",
+      "args": [
+        "-e",
+        "const { spawnSync } = require('node:child_process'); const fail = (message) => { process.stderr.write('[ado-mcp] ' + message + '\\n'); process.exit(1); }; const required = ['AZURE_DEVOPS_AUTH_METHOD', 'AZURE_DEVOPS_DEFAULT_PROJECT', 'AZURE_DEVOPS_ORG_URL', 'AZURE_DEVOPS_PAT']; for (const name of required) { if (!process.env[name] || !process.env[name].trim()) fail('missing required environment variable: ' + name); } const auth = process.env.AZURE_DEVOPS_AUTH_METHOD.trim().toLowerCase(); if (auth !== 'pat') fail('AZURE_DEVOPS_AUTH_METHOD must be pat'); let parsed; try { parsed = new URL(process.env.AZURE_DEVOPS_ORG_URL.trim()); } catch { fail('AZURE_DEVOPS_ORG_URL is invalid'); } let org; if (parsed.hostname.toLowerCase() === 'dev.azure.com') { org = parsed.pathname.split('/').filter(Boolean)[0]; } else if (parsed.hostname.toLowerCase().endsWith('.visualstudio.com')) { org = parsed.hostname.split('.')[0]; } if (!org) fail('could not derive the Azure DevOps organization'); const encodedPat = Buffer.from('mcp:' + process.env.AZURE_DEVOPS_PAT).toString('base64'); const childEnv = { ...process.env, PERSONAL_ACCESS_TOKEN: encodedPat, ado_mcp_project: process.env.AZURE_DEVOPS_DEFAULT_PROJECT.trim() }; const result = spawnSync('npx', ['-y', '@azure-devops/mcp', org, '--authentication', 'pat'], { stdio: 'inherit', env: childEnv }); if (result.error) fail('failed to start server: ' + result.error.message); process.exit(result.status === null ? 1 : result.status);"
+      ],
+      "env": {
+        "AZURE_DEVOPS_AUTH_METHOD": "${COPILOT_MCP_AZURE_DEVOPS_AUTH_METHOD}",
+        "AZURE_DEVOPS_ORG_URL": "${COPILOT_MCP_AZURE_DEVOPS_ORG_URL}",
+        "AZURE_DEVOPS_PAT": "${COPILOT_MCP_AZURE_DEVOPS_PAT}",
+        "AZURE_DEVOPS_DEFAULT_PROJECT": "${COPILOT_MCP_AZURE_DEVOPS_DEFAULT_PROJECT}"
+      },
+      "tools": [
+        "wiki",
+        "wiki_upsert_page"
+      ]
+    }
+  }
+}

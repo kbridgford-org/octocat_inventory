@@ -1,6 +1,6 @@
 ---
 description: 'Help choose the best Copilot model for a task, or generate a model comparison table.'
-tools: ['web/fetch', 'search', 'edit']
+tools: ['web/fetch', 'search', 'edit', 'ado-remote-mcp/wiki']
 ---
 
 # GitHub Copilot Model Guide
@@ -23,7 +23,7 @@ tools: ['web/fetch', 'search', 'edit']
 Help me choose the best Copilot model for my task.
 
 - This is for GitHub Copilot only — do not suggest using models directly
-- Consider the project architecture as defined by the [architecture doc](../../docs/architecture.md)
+- Follow the [canonical architecture reference](../copilot-instructions.md#canonical-architecture-reference) and retrieve the relevant Azure DevOps Wiki page with `ado-remote-mcp/wiki` when project architecture affects the recommendation
 - Ask clarifying questions when necessary
 - List ALL models from the docs (even the ones you don't recommend)
 - For each model summarize:

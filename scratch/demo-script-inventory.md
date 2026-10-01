@@ -11,8 +11,9 @@
 ## Pre-flight
 
 - Build and test the baseline: `make build` and `make test` (both should pass).
-- Open the Vision mockup for Module 1: `docs/design/inventory-bulk-load.svg`
-  (rendered `docs/design/inventory-bulk-load.png`).
+- Open the Vision mockup for Module 1 (inventory bulk-load, PNG + editable SVG) from the
+  `UI Mockups` page in the canonical Azure DevOps Wiki — follow the
+  [architecture retrieval instructions](../.github/copilot-instructions.md#canonical-architecture-reference).
 - Confirm the app runs (`make dev` / see `docs/build.md`).
 
 ---
@@ -22,7 +23,7 @@
 - **Scenario:** Build the Inventory Bulk-Load admin page live from the new mockup.
 - **Capabilities:** Agent Mode, Vision (design image → implementation), planning.
 - **Run:**
-  - Attach `docs/design/inventory-bulk-load.png` as the Vision reference.
+  - Attach the inventory bulk-load mockup from the canonical wiki's `UI Mockups` page as the Vision reference.
   - Run the slash command **`/demo-inventory-bulk-load`** (file: `.github/prompts/demo-inventory-bulk-load.prompt.md`).
 - **Success:** New admin page renders; pasting `Smart Feeder, Laser Toy, Heated Bed` inserts products
   via `POST /api/products/bulk` and shows a summary (added / skipped / errors). `make build` stays green.

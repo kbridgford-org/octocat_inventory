@@ -107,18 +107,7 @@ When you describe what API feature you need, I will:
 
 ## Reference Architecture
 
-```
-api/src/
-├── models/          # TypeScript types matching schema
-├── repositories/    # Data access layer
-├── routes/          # Express.js route handlers
-├── utils/
-│   └── errors.ts    # Domain error classes
-├── db/              # Database utilities
-└── sql/
-    ├── migrations/  # Schema evolution
-    └── seed/        # Reference data
-```
+Before designing schema/ERD relationships or reasoning about cross-component structure, follow the retrieval and maintenance requirements in the [canonical architecture reference](../copilot-instructions.md#canonical-architecture-reference). Retrieve the relevant Azure DevOps Wiki pages before implementation and update/read back affected pages when the work changes architecture.
 
 ## Example Scenarios
 

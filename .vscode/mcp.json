@@ -1,57 +1,18 @@
 {
-  "inputs": [
-    {
-      "id": "github_token",
-      "type": "promptString",
-      "description": "GitHub Personal Access Token",
-      "password": true
-    }
-  ],
   "servers": {
-    "playwright": {
-      "command": "npx",
+    "ado-remote-mcp": {
+      "type": "stdio",
+      "command": "node",
       "args": [
-        "@playwright/mcp@latest",
-        "--browser=msedge"
-      ]
-    },
-    "github": {
-      "command": "docker",
-      "args": [
-        "run",
-        "-i",
-        "--rm",
         "-e",
-        "GITHUB_PERSONAL_ACCESS_TOKEN",
-        "ghcr.io/github/github-mcp-server"
+        "const { spawnSync } = require('child_process'); function fail(msg){ process.stderr.write('[ado-mcp-launcher] ' + msg + '\\n'); process.exit(1); } const need = ['AZURE_DEVOPS_AUTH_METHOD','AZURE_DEVOPS_DEFAULT_PROJECT','AZURE_DEVOPS_ORG_URL','AZURE_DEVOPS_PAT']; for (const k of need) { if (!process.env[k] || !process.env[k].trim()) fail('missing required env var: ' + k); } const authMethod = process.env.AZURE_DEVOPS_AUTH_METHOD.trim().toLowerCase(); if (authMethod !== 'pat') fail('unsupported AZURE_DEVOPS_AUTH_METHOD (expected pat)'); const orgUrl = process.env.AZURE_DEVOPS_ORG_URL.trim(); let org; let m = orgUrl.match(/^https:\\/\\/dev\\.azure\\.com\\/([^\\/]+)\\/?$/i); if (m) { org = m[1]; } else { m = orgUrl.match(/^https:\\/\\/([^.\\/]+)\\.visualstudio\\.com\\/?$/i); if (m) org = m[1]; } if (!org) fail('invalid AZURE_DEVOPS_ORG_URL format'); const project = process.env.AZURE_DEVOPS_DEFAULT_PROJECT.trim(); const token = Buffer.from('mcp:' + process.env.AZURE_DEVOPS_PAT).toString('base64'); const childEnv = Object.assign({}, process.env, { PERSONAL_ACCESS_TOKEN: token, ado_mcp_project: project }); const result = spawnSync('npx', ['-y', '@azure-devops/mcp', org, '--authentication', authMethod], { stdio: 'inherit', env: childEnv }); if (result.error) fail('spawn error: ' + result.error.message); process.exit(result.status === null ? 1 : result.status);"
       ],
       "env": {
-        "GITHUB_PERSONAL_ACCESS_TOKEN": "${input:github_token}"
+        "AZURE_DEVOPS_AUTH_METHOD": "${env:AZURE_DEVOPS_AUTH_METHOD}",
+        "AZURE_DEVOPS_DEFAULT_PROJECT": "${env:AZURE_DEVOPS_DEFAULT_PROJECT}",
+        "AZURE_DEVOPS_ORG_URL": "${env:AZURE_DEVOPS_ORG_URL}",
+        "AZURE_DEVOPS_PAT": "${env:AZURE_DEVOPS_PAT}"
       }
-    },
-    "github-remote": {
-      "type": "http",
-      "url": "https://api.githubcopilot.com/mcp/",
-      "headers": {
-        "X-MCP-Toolsets": "actions, code_security, dependabot, discussions, issues, orgs, projects, pull_requests, repos, secret_protection, security_advisories, copilot, copilot_spaces"
-      }
-    },
-    "Azure MCP Server": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@azure/mcp@latest",
-        "server",
-        "start"
-      ]
-    },
-    "github-agentic-workflows": {
-      "command": "gh",
-      "args": [
-        "aw",
-        "mcp-server"
-      ],
-      "cwd": "${workspaceFolder}"
     }
   }
 }

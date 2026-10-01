@@ -224,7 +224,7 @@ To see which features we need contributions for, visit [gh.io/octocat-backlog](h
 - [Main README](./README.md) - Project overview and setup
 - [Demo Template README](./.octodemo/README.md) - Explanation about the structure of the demo and adjacent repositories
 - [Demo Walkthroughs](./demo/walkthroughs/README.md) - Complete demo scenarios
-- [Architecture Documentation](./docs/architecture.md) - System design details
+- [Architecture Reference](./.github/copilot-instructions.md#canonical-architecture-reference) - Canonical Azure DevOps Wiki retrieval and maintenance instructions
 - [Demo Creator Guide](https://github.com/octodemo-framework/docs/blob/main/demo-creators/README.md) - Octodemo Framework documentation
 - [Custom Instructions](./.github/copilot-instructions.md) - Copilot configuration for this repo
 

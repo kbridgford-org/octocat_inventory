@@ -1,6 +1,6 @@
 ---
 description: 'Use Coding Agent to test multiple paths - in parallel!'
-tools: ['search', 'edit', 'web','vscode/openSimpleBrowser', 'read', 'execute', 'azure-mcp-server/search', 'playwright/*', 'github/*']
+tools: ['search', 'edit', 'web','vscode/openSimpleBrowser', 'read', 'execute', 'azure-mcp-server/search', 'playwright/*', 'github/*', 'ado-remote-mcp/wiki', 'ado-remote-mcp/wiki_upsert_page']
 ---
 
 # Demo: Use Coding Agent to test multiple paths - in parallel!
@@ -29,7 +29,8 @@ Explore three different **visual/UX design approaches** for an **Inventory Bulk-
 6. Assign the Copilot Agent to each sub-issue to implement the design in parallel.
 
 ### Frontend Architecture and Building
-- Refer to the existing Architecture Doc (../../docs/architecture.md) for frontend structure
+- Follow the [canonical architecture reference](../copilot-instructions.md#canonical-architecture-reference) and retrieve the relevant `Application Architecture`, `Data Flows`, and `UI Mockups` wiki pages before planning the designs
+- If an implemented design changes architecture, update the affected existing wiki pages with `ado-remote-mcp/wiki_upsert_page` and verify them with `ado-remote-mcp/wiki`
 - Refer to the Build Doc (../../docs/build.md) for build instructions
 
 ### Implementation Specifications

@@ -1,6 +1,6 @@
 ---
 description: 'Demo: Improve API Test Coverage - Add Unit Tests for Missing Routes.'
-tools: ['search', 'edit', 'web','vscode/openSimpleBrowser', 'read', 'execute', 'azure-mcp-server/search', 'playwright/*', 'github/*']
+tools: ['search', 'edit', 'web','vscode/openSimpleBrowser', 'read', 'execute', 'azure-mcp-server/search', 'playwright/*', 'github/*', 'ado-remote-mcp/wiki']
 ---
 # 🧪 Demo: Add Unit Tests for Product and Supplier Routes
 
@@ -212,6 +212,8 @@ cd api && ./mvnw test jacoco:report
 - [ ] All tests passing in CI/CD
 
 ## 🚀 Getting Started
+Before writing relationship-dependent tests, follow the [canonical architecture reference](../copilot-instructions.md#canonical-architecture-reference) and retrieve the `Data Model` wiki page with `ado-remote-mcp/wiki`.
+
 <% if demo_options.backend == 'nodejs' %>
 1. Start with `product.test.ts` - copy `branch.test.ts` pattern
 2. Implement basic CRUD tests first
@@ -234,17 +236,17 @@ cd api && ./mvnw test jacoco:report
 
 ## 📚 Related Files
 <% if demo_options.backend == 'nodejs' %>
-- ERD Diagram: `api/ERD.png`
+- ERD: retrieve the `Data Model` wiki page per `.github/copilot-instructions.md`
 - Existing test: `api/src/routes/branch.test.ts`
 - Test config: `api/vitest.config.ts`
 - Coverage report: `api/coverage/index.html`
 <% elsif demo_options.backend == 'python' %>
-- ERD Diagram: `api/ERD.png`
+- ERD: retrieve the `Data Model` wiki page per `.github/copilot-instructions.md`
 - Existing tests: `api/tests/test_products.py`, `api/tests/test_suppliers.py`
 - Test fixtures: `api/tests/conftest.py`
 - Config: `api/pyproject.toml`
 <% elsif demo_options.backend == 'java' %>
-- ERD Diagram: `api/ERD.png`
+- ERD: retrieve the `Data Model` wiki page per `.github/copilot-instructions.md`
 - Existing test: `api/src/test/java/com/octodemo/octocatsupply/controller/ProductControllerTest.java`
 - Config: `api/pom.xml`
 <% endif %>

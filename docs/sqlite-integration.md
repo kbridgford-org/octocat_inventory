@@ -1,30 +1,8 @@
 # SQLite Database Integration
 
-This document explains how to use the SQLite database integration in the OctoCAT Supply Chain Management API.
+This document explains how to operate the SQLite database used by the OctoCAT Supply Chain Management API: setup, configuration, testing, and troubleshooting.
 
-## Overview
-
-The API has been migrated from in-memory data storage to a persistent SQLite database. This provides:
-
-- **Data persistence** - Data survives server restarts
-- **ACID transactions** - Reliable data consistency
-- **Proper relationships** - Foreign key constraints between entities
-- **Performance** - Indexed queries for better performance
-- **Testing** - In-memory database for unit tests
-
-## Database Structure
-
-The database consists of the following tables:
-
-- `suppliers` - Supplier information
-- `headquarters` - Company headquarters data
-- `branches` - Branch locations (linked to headquarters)
-- `products` - Product catalog (linked to suppliers)
-- `orders` - Customer orders (linked to branches)
-- `order_details` - Order line items (linked to orders and products)
-- `deliveries` - Delivery tracking (linked to suppliers)
-- `order_detail_deliveries` - Junction table for order-delivery relationships
-- `migrations` - Database schema version tracking
+> Persistence topology (table list/relationships), the repository pattern contract, and error-type-to-HTTP status mapping are maintained in the canonical Azure DevOps Wiki. Follow the [architecture retrieval and maintenance instructions](../.github/copilot-instructions.md#canonical-architecture-reference).
 
 ## Getting Started
 
@@ -82,49 +60,6 @@ You can override the database location using the `DB_FILE` environment variable:
 ```bash
 export DB_FILE=/path/to/your/database.db
 ```
-
-## Repository Pattern
-
-The API uses the Repository pattern to interact with the database:
-
-### Using Repositories
-
-```typescript
-import { getSuppliersRepository } from './repositories/suppliersRepo';
-
-const repo = await getSuppliersRepository();
-
-// Get all suppliers
-const suppliers = await repo.findAll();
-
-// Get supplier by ID
-const supplier = await repo.findById(1);
-
-// Create new supplier
-const newSupplier = await repo.create({
-    name: 'New Supplier',
-    description: 'Description',
-    contactPerson: 'John Doe',
-    email: 'john@example.com',
-    phone: '555-1234'
-});
-
-// Update supplier
-const updated = await repo.update(1, { name: 'Updated Name' });
-
-// Delete supplier
-await repo.delete(1);
-
-// Search by name
-const results = await repo.findByName('Tech');
-```
-
-### Repository Features
-
-- **Type Safety** - Full TypeScript support
-- **Error Handling** - Proper error types (NotFoundError, ValidationError, etc.)
-- **SQL Injection Protection** - Parameterized queries
-- **Automatic Mapping** - Converts between snake_case (database) and camelCase (JavaScript)
 
 ## Database Schema Management
 
@@ -203,23 +138,7 @@ export const DB_CONFIG = {
 
 ## Error Handling
 
-The system provides specialized error types:
-
-- `DatabaseError` - General database errors
-- `NotFoundError` - Entity not found (404)
-- `ValidationError` - Invalid data (400)
-- `ConflictError` - Constraint violations (409)
-
-These errors are automatically handled by the Express error middleware and return appropriate HTTP status codes.
-
-## Performance Considerations
-
-The database includes several optimizations:
-
-- **Indexes** - On foreign keys and frequently queried columns
-- **WAL Mode** - Better concurrency for read/write operations
-- **Connection Pooling** - Reuses database connections
-- **Query Optimization** - Parameterized queries prevent SQL injection
+The system provides specialized error types (`DatabaseError`, `NotFoundError`, `ValidationError`, `ConflictError`), automatically handled by the Express error middleware. See the canonical architecture reference for the current type-to-HTTP-status mapping.
 
 ## Backup and Recovery
 

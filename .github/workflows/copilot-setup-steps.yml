@@ -1,7 +1,14 @@
 name: "Copilot Setup Steps"
 
-# Allows you to test the setup steps from your repository's "Actions" tab
-on: workflow_dispatch
+# Allows manual validation and validates changes to this workflow automatically.
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
+  pull_request:
+    paths:
+      - .github/workflows/copilot-setup-steps.yml
 
 jobs:
   # The job MUST be called `copilot-setup-steps` or it will not be picked up by Copilot
@@ -22,13 +29,18 @@ jobs:
         with:
           node-version: "24"
 
+      - name: Verify Node.js tooling
+        run: |
+          node --version
+          npm --version
+          npx --version
+
       - name: Install all dependencies
         run: make install
 
       - name: Install Playwright
         working-directory: frontend
         run: npm install -D @playwright/test
-
 
       - name: Install Playwright browsers (Chromium and Edge)
         working-directory: frontend

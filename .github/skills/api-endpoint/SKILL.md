@@ -7,14 +7,9 @@ description: Generate REST API endpoints for the OctoCAT Supply Chain applicatio
 
 This skill guides the creation of REST API endpoints following the OctoCAT Supply Chain application's established patterns.
 
-## Architecture Overview
+## Architecture Reference
 
-The API follows a layered architecture:
-```
-Routes (Express.js) → Repository (Data Access) → SQLite Database
-     ↓                      ↓
-   Models              SQL Utilities
-```
+Before generating an endpoint, follow the retrieval and maintenance requirements in the [canonical architecture reference](../../copilot-instructions.md#canonical-architecture-reference). Retrieve the relevant Azure DevOps Wiki pages, including the data model, before implementation and update/read back affected pages when the endpoint changes architecture.
 
 ## When to Use This Skill
 
@@ -442,19 +437,6 @@ Available helpers from `utils/sql.ts`:
 - `objectToCamelCase<T>(row)` - Convert single DB row to typed model
 - `mapDatabaseRows<T>(rows)` - Convert array of DB rows to typed models
 - `toSnakeCase(str)` / `toCamelCase(str)` - String conversion
-
-## File Locations
-
-```
-api/src/
-├── models/{entity}.ts          # TypeScript interface + Swagger schema
-├── repositories/{entity}sRepo.ts  # Data access layer
-├── routes/{entity}.ts          # Express routes + Swagger docs
-├── utils/
-│   ├── errors.ts              # Custom error types
-│   └── sql.ts                 # SQL helper utilities
-└── index.ts                   # Route registration
-```
 
 ## Quick Reference: Complete Checklist
 

@@ -1,6 +1,6 @@
 ---
 description: 'Complete Demo: Inventory Bulk-Load Admin Page with Vision and Agent Mode'
-tools: ['search', 'edit', 'web','vscode/openSimpleBrowser', 'read', 'execute', 'azure-mcp-server/search', 'playwright/*', 'github/*']
+tools: ['search', 'edit', 'web','vscode/openSimpleBrowser', 'read', 'execute', 'azure-mcp-server/search', 'playwright/*', 'github/*', 'ado-remote-mcp/wiki', 'ado-remote-mcp/wiki_upsert_page']
 ---
 
 # Demo: Inventory Bulk-Load Admin Page Implementation
@@ -24,7 +24,7 @@ Implement a complete **Inventory Bulk-Load** admin page (backend/admin, no login
 5. Consistent styling with the existing application (dark/light themes)
 
 ## Design Reference
-Use the provided design mockup (`../../docs/design/inventory-bulk-load.svg`, rendered as `../../docs/design/inventory-bulk-load.png`) as the visual reference for implementation. The design shows:
+Follow the [canonical architecture reference](../copilot-instructions.md#canonical-architecture-reference), then retrieve the `UI Mockups` wiki page with `ado-remote-mcp/wiki` and use its `inventory-bulk-load` mockup (paired editable SVG + rendered PNG) as the visual reference. The design shows:
 - A page title and a short description
 - A large "paste a comma-delimited list" textarea
 - A "Bulk Load" button (plus a secondary "Clear")
@@ -34,7 +34,8 @@ Use the provided design mockup (`../../docs/design/inventory-bulk-load.svg`, ren
 ## Technical Requirements
 
 ### Architecture and Building
-- Refer to the existing Architecture Doc (`../../docs/architecture.md`) for frontend + API structure
+- Retrieve the relevant `Application Architecture`, `Data Flows`, and `Data Model` wiki pages before implementation, following `.github/copilot-instructions.md`
+- If the implementation changes architecture, update the affected existing wiki pages with `ado-remote-mcp/wiki_upsert_page` and verify them with `ado-remote-mcp/wiki`
 - Refer to the Build Doc (`../../docs/build.md`) for build instructions
 
 ### Implementation Specifications

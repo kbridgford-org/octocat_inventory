@@ -79,7 +79,7 @@ INTERNAL THOUGHTS – not shown to the user.
 
 ## 7. Documentation & Resources
 <!-- Links to specs, diagrams, prior PRs, related issues -->
-- Architecture: [Architecture Document](../../docs/architecture.md)
+- Architecture: follow the canonical Azure DevOps Wiki retrieval and maintenance instructions in `.github/copilot-instructions.md`
 - Related PR: #
 - Design mockup: 
 - API documentation:
